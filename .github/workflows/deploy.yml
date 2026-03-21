@@ -1,0 +1,30 @@
+name: Deploy to Vultr
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          password: ${{ secrets.DEPLOY_PASSWORD }}
+          script: |
+            cd /opt/healthcare-app || mkdir -p /opt/healthcare-app && cd /opt/healthcare-app
+
+            # Clone or pull latest code
+            if [ -d .git ]; then
+              git pull origin master
+            else
+              git clone https://github.com/gopalakrishnans/myrepo.git .
+            fi
+
+            # Build and restart containers
+            docker-compose down
+            docker-compose up -d --build
