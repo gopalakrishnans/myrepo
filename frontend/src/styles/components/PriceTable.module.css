@@ -1,0 +1,58 @@
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.table th {
+  background: var(--color-gray-50);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.table th:hover {
+  background: var(--color-gray-100);
+}
+
+.table td {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--color-gray-100);
+  font-size: 0.9rem;
+}
+
+.table tr:hover td {
+  background: var(--color-gray-50);
+}
+
+.priceCell {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.sortIcon {
+  margin-left: 4px;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+}
