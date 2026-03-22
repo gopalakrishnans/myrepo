@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - 'claude/**'
 
 jobs:
   deploy:
@@ -20,11 +21,14 @@ jobs:
 
             # Clone or pull latest code
             if [ -d .git ]; then
-              git pull origin master
+              git fetch origin
+              git checkout ${{ github.ref_name }}
+              git pull origin ${{ github.ref_name }}
             else
               git clone https://github.com/gopalakrishnans/myrepo.git .
+              git checkout ${{ github.ref_name }}
             fi
 
             # Build and restart containers
-            docker-compose down
-            docker-compose up -d --build
+            docker compose down
+            docker compose up -d --build
