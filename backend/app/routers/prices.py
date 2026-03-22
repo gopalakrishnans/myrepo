@@ -52,7 +52,10 @@ def compare(
     hospital_ids: str = Query(..., description="Comma-separated hospital IDs"),
     db: Session = Depends(get_db),
 ):
-    ids = [int(x.strip()) for x in hospital_ids.split(",") if x.strip()]
+    try:
+        ids = [int(x.strip()) for x in hospital_ids.split(",") if x.strip()]
+    except ValueError:
+        raise HTTPException(status_code=400, detail="hospital_ids must be comma-separated integers")
     if len(ids) < 2 or len(ids) > 4:
         raise HTTPException(status_code=400, detail="Provide 2-4 hospital IDs")
 
