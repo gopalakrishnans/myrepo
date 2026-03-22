@@ -5,6 +5,8 @@ import HomePage from './pages/HomePage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import ProcedureDetailPage from './pages/ProcedureDetailPage';
 import ComparePage from './pages/ComparePage';
+import HospitalSearchPage from './pages/HospitalSearchPage';
+import EstimatorPage from './pages/EstimatorPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,6 +27,8 @@ export default function App() {
             <Route path="/search" element={<SearchResultsPage />} />
             <Route path="/procedure/:id" element={<ProcedureDetailPage />} />
             <Route path="/compare" element={<ComparePage />} />
+            <Route path="/hospitals" element={<HospitalSearchPage />} />
+            <Route path="/estimator" element={<EstimatorPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

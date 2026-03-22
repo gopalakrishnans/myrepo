@@ -50,3 +50,7 @@ export function getHospital(id) {
 export function getProcedureStats(id, state) {
   return fetchApi(`/stats/procedure/${id}`, { state });
 }
+
+export function searchHospitalsNearby(params) {
+  return fetchApi('/hospitals/nearby', params);
+}
