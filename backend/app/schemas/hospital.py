@@ -20,3 +20,7 @@ class HospitalResponse(HospitalBase):
     last_updated: Optional[date] = None
 
     model_config = {"from_attributes": True}
+
+
+class HospitalWithDistanceResponse(HospitalResponse):
+    distance_miles: float
