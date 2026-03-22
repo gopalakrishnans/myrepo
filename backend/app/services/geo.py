@@ -1,12 +1,18 @@
 import math
 
-import pgeocode
+_nomi = None
 
-_nomi = pgeocode.Nominatim("us")
+
+def _get_nomi():
+    global _nomi
+    if _nomi is None:
+        import pgeocode
+        _nomi = pgeocode.Nominatim("us")
+    return _nomi
 
 
 def zip_to_coords(zip_code: str) -> tuple[float, float] | None:
-    result = _nomi.query_postal_code(zip_code)
+    result = _get_nomi().query_postal_code(zip_code)
     if math.isnan(result.latitude) or math.isnan(result.longitude):
         return None
     return (float(result.latitude), float(result.longitude))
