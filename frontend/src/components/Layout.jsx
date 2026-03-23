@@ -26,6 +26,8 @@ export default function Layout() {
             <Link to="/search?category=Imaging">Imaging</Link>
             <Link to="/search?category=Lab">Lab</Link>
             <Link to="/search?category=Surgery">Surgery</Link>
+            <Link to="/hospitals">Find Hospitals</Link>
+            <Link to="/estimator">Cost Estimator</Link>
           </nav>
         </div>
       </header>

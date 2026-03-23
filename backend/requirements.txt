@@ -5,3 +5,5 @@ pydantic==2.10.3
 pydantic-settings==2.7.0
 pytest==8.3.4
 httpx==0.28.1
+pgeocode==0.4.1
+ijson==3.3.0

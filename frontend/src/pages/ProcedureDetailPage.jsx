@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getProcedure, getPrices, getProcedureStats } from '../api/client';
 import PriceTable from '../components/PriceTable';
+import CostEstimatorPanel from '../components/CostEstimatorPanel';
 
 export default function ProcedureDetailPage() {
   const { id } = useParams();
@@ -118,6 +119,20 @@ export default function ProcedureDetailPage() {
       ) : (
         <PriceTable prices={prices} fairPrice={stats?.fair_price} />
       )}
+
+      {prices.length > 0 && <CostEstimatorPanel prices={prices} />}
+
+      <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+        <Link
+          to={`/hospitals?procedure_id=${id}`}
+          style={{
+            fontSize: '0.9rem',
+            color: 'var(--color-primary)',
+          }}
+        >
+          Find nearby hospitals for this procedure
+        </Link>
+      </div>
 
       {stats && (
         <div style={{

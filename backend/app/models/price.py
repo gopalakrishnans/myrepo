@@ -16,6 +16,8 @@ class Price(Base):
     negotiated_rate = Column(Numeric(10, 2))
     min_negotiated_rate = Column(Numeric(10, 2))
     max_negotiated_rate = Column(Numeric(10, 2))
+    source_type = Column(String(20))  # "hospital_mrf" or "insurer_mrf" or "seed"
+    source_file = Column(String(500))
 
     hospital = relationship("Hospital", back_populates="prices")
     procedure = relationship("Procedure", back_populates="prices")

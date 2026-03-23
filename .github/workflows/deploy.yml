@@ -17,13 +17,13 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
-            cd /opt/healthcare-app || mkdir -p /opt/healthcare-app && cd /opt/healthcare-app
+            cd /opt/clearprice || { echo "Error: /opt/clearprice not found. Run setup-vultr.sh first."; exit 1; }
 
-            # Clone or pull latest code from master
+            # Pull latest code
             if [ -d .git ]; then
-              git fetch origin
+              git fetch origin master
               git checkout master
-              git pull origin master
+              git reset --hard origin/master
             else
               git clone https://github.com/gopalakrishnans/myrepo.git .
               git checkout master
