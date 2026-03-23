@@ -54,3 +54,18 @@ export function getProcedureStats(id, state) {
 export function searchHospitalsNearby(params) {
   return fetchApi('/hospitals/nearby', params);
 }
+
+export async function uploadHospitalMrf(file, adminKey) {
+  const formData = new FormData();
+  formData.append('file', file);
+  const response = await fetch('/api/v1/admin/ingest/hospital', {
+    method: 'POST',
+    headers: { 'x-admin-key': adminKey },
+    body: formData,
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({ detail: 'Upload failed' }));
+    throw new Error(err.detail || 'Upload failed');
+  }
+  return response.json();
+}

@@ -5,7 +5,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.routers import hospitals, prices, procedures, stats
+from app.routers import admin, hospitals, prices, procedures, stats
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +31,7 @@ app.include_router(procedures.router, prefix="/api/v1")
 app.include_router(prices.router, prefix="/api/v1")
 app.include_router(hospitals.router, prefix="/api/v1")
 app.include_router(stats.router, prefix="/api/v1")
+app.include_router(admin.router, prefix="/api/v1")
 
 
 @app.exception_handler(Exception)

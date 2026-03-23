@@ -7,6 +7,7 @@ import ProcedureDetailPage from './pages/ProcedureDetailPage';
 import ComparePage from './pages/ComparePage';
 import HospitalSearchPage from './pages/HospitalSearchPage';
 import EstimatorPage from './pages/EstimatorPage';
+import AdminPage from './pages/AdminPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,6 +30,7 @@ export default function App() {
             <Route path="/compare" element={<ComparePage />} />
             <Route path="/hospitals" element={<HospitalSearchPage />} />
             <Route path="/estimator" element={<EstimatorPage />} />
+            <Route path="/admin" element={<AdminPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
