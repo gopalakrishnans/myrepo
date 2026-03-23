@@ -46,5 +46,6 @@ jobs:
             docker ps -q --filter "publish=80" | xargs -r docker stop
             # Build and restart containers
             $DC down --remove-orphans
+            docker network rm clearprice_default 2>/dev/null || true
             $DC build --no-cache
             $DC up -d
