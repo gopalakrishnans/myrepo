@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - 'claude/**'
 
 jobs:
   deploy:
@@ -19,10 +20,31 @@ jobs:
             cd /opt/clearprice || { echo "Error: /opt/clearprice not found. Run setup-vultr.sh first."; exit 1; }
 
             # Pull latest code
-            git fetch origin master
-            git checkout master
-            git reset --hard origin/master
+            if [ -d .git ]; then
+              git fetch origin master
+              git checkout master
+              git reset --hard origin/master
+            else
+              git clone https://github.com/gopalakrishnans/myrepo.git .
+              git checkout master
+            fi
 
+            # Determine compose command (V2 plugin preferred, fallback to V1 standalone)
+            if docker compose version > /dev/null 2>&1; then
+              DC="docker compose"
+            elif command -v docker-compose > /dev/null 2>&1; then
+              DC="docker-compose"
+            else
+              echo "Installing docker-compose..."
+              sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+              sudo chmod +x /usr/local/bin/docker-compose
+              DC="docker-compose"
+            fi
+            echo "Using compose command: $DC"
+
+            # Kill any container using port 80 before starting
+            docker ps -q --filter "publish=80" | xargs -r docker stop
             # Build and restart containers
-            docker compose down
-            docker compose up -d --build
+            $DC down --remove-orphans
+            $DC build --no-cache
+            $DC up -d
