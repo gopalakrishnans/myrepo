@@ -30,8 +30,7 @@ def nearby_hospitals(
 
     items = []
     for hospital, distance in results:
-        resp = HospitalWithDistanceResponse.model_validate(hospital)
-        resp.distance_miles = distance
+        resp = HospitalWithDistanceResponse.model_validate(hospital, update={'distance_miles': distance})
         items.append(resp)
 
     return {
