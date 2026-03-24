@@ -1,21 +1,13 @@
 import math
 
-_nomi = None
-
-
-def _get_nomi():
-    global _nomi
-    if _nomi is None:
-        import pgeocode
-        _nomi = pgeocode.Nominatim("us")
-    return _nomi
-
 
 def zip_to_coords(zip_code: str) -> tuple[float, float] | None:
-    result = _get_nomi().query_postal_code(zip_code)
-    if math.isnan(result.latitude) or math.isnan(result.longitude):
+    import zipcodes
+    matches = zipcodes.matching(zip_code)
+    if not matches:
         return None
-    return (float(result.latitude), float(result.longitude))
+    z = matches[0]
+    return (float(z["lat"]), float(z["long"]))
 
 
 def haversine_miles(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
