@@ -43,7 +43,7 @@ jobs:
             echo "Using compose command: $DC"
 
             # Kill any container using port 80 before starting
-            docker ps -q --filter "publish=80" | xargs -r docker stop
+            docker ps -q --filter "publish=80" | xargs -r docker rm -f
             # Build and restart containers
             $DC down --remove-orphans
             docker network rm clearprice_default 2>/dev/null || true
