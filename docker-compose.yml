@@ -8,6 +8,8 @@ services:
       - db-data:/app/data
     expose:
       - "8000"
+    environment:
+      - ADMIN_SECRET=${ADMIN_SECRET:-}
 
   frontend:
     build:
